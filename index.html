@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Vulnerability Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Advanced Web Vulnerability Scanner</h1>
+
+    <!-- Form to enter URL -->
+    <form action="/scan" method="POST">
+        <label for="url">Enter URL to scan:</label>
+        <input type="text" id="url" name="url" required placeholder="http://example.com">
+        <button type="submit">Scan</button>
+    </form>
+
+    <!-- Error message -->
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <!-- Results and Report Download -->
+    {% if url %}
+        <h2>Results for {{ url }}</h2>
+        <ul>
+            {% for result in results %}
+                <li>{{ result }}</li>
+            {% endfor %}
+        </ul>
+        
+        <p><a href="{{ url_for('static', filename=report_filename) }}" download>Download Scan Report (PDF)</a></p>
+    {% endif %}
+</body>
+</html>
